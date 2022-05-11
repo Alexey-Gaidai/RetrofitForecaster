@@ -2,15 +2,12 @@ package com.example.retrofitforecaster.present
 
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.retrofitforecaster.R
 import com.example.retrofitforecaster.databinding.ActivityMainBinding
 import com.example.retrofitforecaster.model.WeatherViewModel
 
