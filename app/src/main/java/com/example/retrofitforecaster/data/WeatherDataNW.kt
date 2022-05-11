@@ -1,35 +1,6 @@
 package com.example.retrofitforecaster
 
-import androidx.room.ColumnInfo
-import androidx.room.Dao
-import androidx.room.Database
-import androidx.room.Entity
-import androidx.room.Insert
-import androidx.room.PrimaryKey
-import androidx.room.Query
-import androidx.room.RoomDatabase
-
-@Entity
-data class Weather(
-    @PrimaryKey val temperature: Double,
-    @ColumnInfo(name = "date") var date: String,
-    @ColumnInfo(name = "description") val description: String?
-)
-
-@Dao
-interface WeatherDao {
-    @Query("SELECT * FROM Weather")
-    fun getAll(): List<Weather>
-    @Insert
-    fun insertAll(list: List<Weather>)
-}
-
-@Database(entities = [Weather::class], version = 2)
-abstract class AppDatabase : RoomDatabase() {
-    abstract fun userDao(): WeatherDao
-}
-
-data class DataWeather(
+data class WeatherDataNW(
     val cod: String = "",
     val message: Int = 0,
     val cnt: Int = 0,
