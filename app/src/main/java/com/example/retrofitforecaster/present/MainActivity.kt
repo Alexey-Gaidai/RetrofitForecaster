@@ -11,16 +11,19 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitforecaster.R
+import com.example.retrofitforecaster.databinding.ActivityMainBinding
 import com.example.retrofitforecaster.model.WeatherViewModel
 
 class MainActivity : AppCompatActivity() {
     lateinit var layoutManager: LinearLayoutManager
     private val adapter by lazy { WeatherAdapter() }
     private val model: WeatherViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initRecyclerView()
         observe()
@@ -36,8 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun buttonListener() {
-        val button: Button = findViewById(R.id.search_button)
-        button.setOnClickListener {
+        binding.searchButton.setOnClickListener {
             search()
             val imm: InputMethodManager =
                 getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -46,11 +48,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        val recyclerView: RecyclerView = findViewById(R.id.rView)
         layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(addItemDecoration(recyclerView))
+        binding.rView.layoutManager = layoutManager
+        binding.rView.adapter = adapter
+        binding.rView.addItemDecoration(addItemDecoration(binding.rView))
     }
 
     private fun observe() {
@@ -60,8 +61,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun search() {
-        val etSearch: EditText = findViewById(R.id.search_edit_text)
-        model.getWeather(etSearch.text.toString())
+        model.getWeather(binding.searchEditText.text.toString())
         adapter.submitList(model.weatherList.value)
         adapter.notifyDataSetChanged()
     }
